@@ -20,7 +20,7 @@ import Image from "../assets/image.json";
 
 export default function FirmCard({ product }) {
   const { postProduct } = useProductCalls();
-  const [quantity, setQuantity] = useState(3);
+  const [quantity, setQuantity] = useState(0);
   const [isIconsVisible, setIconsVisible] = useState(false);
 
   const handleSubmit = () => {
