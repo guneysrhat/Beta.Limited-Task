@@ -52,11 +52,11 @@ const useProductCalls = () => {
   const postProductData = async (info, url) => {
     try {
       await axiosWithToken.post(`${url}?id=${info}`);
-      toastSuccessNotify(`${url} successfuly added`);
+      toastSuccessNotify(`Product has been successfully added to the cart`);
       getProductData("view-cart");
     } catch (error) {
       console.log(error);
-      toastErrorNotify(`${url} can not be added`);
+      toastErrorNotify(`Product could not be added to the cart`);
     }
   };
 
