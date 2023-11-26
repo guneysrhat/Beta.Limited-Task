@@ -83,7 +83,7 @@ export default function FirmCard({ product }) {
           <FavoriteIcon sx={{ color: "white", fontSize: 20 }} />
 
           <ShoppingCartIcon
-            sx={{ color: "white", fontSize: 20 }}
+            sx={{ color: "white", fontSize: 20 , cursor: "pointer"}}
             onClick={handleSubmit}
           />
         </Box>
