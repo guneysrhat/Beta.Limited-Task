@@ -6,6 +6,7 @@ import { useState, useRef } from "react";
 import { Box, Typography, IconButton, Avatar } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useSelector } from "react-redux";
+import Badge from "@mui/material/Badge";
 
 // Static
 import Image from "../assets/image.json";
@@ -15,7 +16,7 @@ const ShoppingCartDropdown = () => {
 
   const [isDropdownOpen, setDropdownOpen] = useState(false);
   const cartIconRef = useRef(null);
-
+  const isCartEmpty = viewCart === "Cart is empty.";
   const handleCartIconClick = (event) => {
     setDropdownOpen(!isDropdownOpen);
   };
@@ -24,25 +25,47 @@ const ShoppingCartDropdown = () => {
     return viewCart?.reduce(
       (total, item) => total + item?.price * item?.quantity,
       0
-    );
+    ).toFixed(2);
   };
+
+  const totalItemsInCart = isCartEmpty
+    ? 0
+    : viewCart?.reduce((total, item) => total + item?.quantity, 0);
 
   return (
     <Box>
-      <IconButton
-        sx={{ color: "black", fontSize: 20 }}
-        onClick={handleCartIconClick}
-        ref={cartIconRef}
+      <Badge
+        badgeContent={totalItemsInCart}
+        color="error"
+        sx={{
+          bottom: 8,
+          right: 8,
+        }}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+          bottom: 6,
+          right: 12,
+        }}
       >
-        <ShoppingCartIcon />
-      </IconButton>
+        <IconButton
+          sx={{ color: "black", fontSize: 20, top: 8, left: 6 }}
+          onClick={handleCartIconClick}
+          ref={cartIconRef}
+        >
+          <ShoppingCartIcon />
+        </IconButton>
+      </Badge>
 
       <Popover
         open={isDropdownOpen}
         anchorEl={cartIconRef.current}
         onClose={() => setDropdownOpen(false)}
+        sx={{
+          mt: 6,
+        }}
       >
-        {viewCart === "Cart is empty." ? (
+        {isCartEmpty ? (
           <Typography sx={{ p: 2 }}>
             There are no products in your cart.
           </Typography>
